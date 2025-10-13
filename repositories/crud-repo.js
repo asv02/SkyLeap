@@ -30,8 +30,10 @@ class CrudRepo {
   async get(data) {
     try {
       const res = await this.model.findByPk(data);
+      console.log('res in get->',res)
       return res;
     } catch (error) {
+      // console.log('Error in REPO',error)
       logger.error("Error in getting by Primary key in CrudRepo Model");
     }
   }

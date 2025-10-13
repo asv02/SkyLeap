@@ -1,2 +1,3 @@
 const { AirplaneRepositories } = require("./AirplaneRepositories");
-module.exports = { AirplaneRepositories };
+const { CityRepositories } = require("./CityRepositories");
+module.exports = { AirplaneRepositories,CityRepositories };

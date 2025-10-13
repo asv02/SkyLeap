@@ -1,17 +1,20 @@
 const { logger } = require("sequelize/lib/utils/logger");
-const { AirplaneRepositories } = require("../repositories");
+const { CityRepositories } = require("../repositories/CityRepositories");
+const {ApiError} = require('../utils');
+
+
 const { StatusCodes } = require("http-status-codes");
-const { ApiError } = require("../utils");
-class AirplaneServices extends AirplaneRepositories {
+
+class Cityservice extends CityRepositories {
   constructor() {
     super();
   }
 
-  async createAirplane(data) {
+  async createCity(data) {
     try {
-      console.log("Creating Airplane at Service layer");
-      const airplane = await this.create(data);
-      return airplane;
+      console.log("Creating City at Service layer");
+      const city = await this.create(data);
+      return city;
     } catch (error) {
       const errorRes = new ApiError(
         "Error in creating Airplane on service layer",
@@ -20,9 +23,9 @@ class AirplaneServices extends AirplaneRepositories {
       throw errorRes;
     }
   }
-  async GetAirplane(data) {
+  async getCity(id) {
     try {
-      const response = await this.get(data);
+      const response = await this.get(id);
       console.log("reponse of get in service layer->", response);
       return response;
     } catch (error) {
@@ -33,7 +36,7 @@ class AirplaneServices extends AirplaneRepositories {
       throw err;
     }
   }
-  async GetAllAirplane() {
+  async getAllCity() {
     try {
       const response = await this.getAll();
       if (!response) {
@@ -45,16 +48,15 @@ class AirplaneServices extends AirplaneRepositories {
       return response;
     } catch (error) {
       const err = new ApiError(
-        "Error in getting all the Airplanes",
+        "Error in getting all the Cities",
         StatusCodes.INTERNAL_SERVER_ERROR
       );
       throw err;
     }
   }
-
-  async DeleteAirplane(data) {
+  async deleteCity(id) {
     try {
-      const response = await this.delete(data);
+      const response = await this.delete(id);
       console.log("response in deleting om service->", response);
       if (!response) {
         throw new ApiError(
@@ -75,7 +77,7 @@ class AirplaneServices extends AirplaneRepositories {
       throw e;
     }
   }
-  async updateAirplane(id, data) {
+  async updateCity(id, data) {
     try {
       const response = await this.update(id, data);
       return response;
@@ -89,4 +91,4 @@ class AirplaneServices extends AirplaneRepositories {
   }
 }
 
-module.exports = { AirplaneServices };
+module.exports = { Cityservice };

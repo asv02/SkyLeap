@@ -1,7 +1,9 @@
-const { AirplaneController } = require('./Airplane-Controllers');
-const infoController = require('./info-controller');
+const { AirplaneController } = require("./Airplane-Controllers");
+const { CityController } = require("./City-Controller");
+const infoController = require("./info-controller");
 
 module.exports = {
-    infoController,
-    AirplaneController
-}
+  infoController,
+  AirplaneController,
+  CityController,
+};

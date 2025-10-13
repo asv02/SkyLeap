@@ -1,58 +1,54 @@
-const { logger } = require("sequelize/lib/utils/logger");
-const { AirplaneServices } = require("../services");
+const { Cityservice } = require("../services");
+const { ApiError } = require("../utils");
 const { StatusCodes } = require("http-status-codes");
-const { errorResponse, successResponse, ApiError } = require("../utils");
+const { errorResponse, successResponse } = require("../utils");
 
-class AirplaneController {
+class CityController {
   constructor() {
-    this.Airplaneservices = new AirplaneServices();
-    this.createAirplaneHandler = this.createAirplaneHandler.bind(this);
-    this.getAirplaneHandler = this.getAirplaneHandler.bind(this);
-    this.getAllAirplaneHandler = this.getAllAirplaneHandler.bind(this);
-    this.deleteAirplaneHandler = this.deleteAirplaneHandler.bind(this);
-    this.updateAirplaneHandler = this.updateAirplaneHandler.bind(this);
+    this.CityService = new Cityservice();
+    this.createCityHandler = this.createCityHandler.bind(this);
+    this.getCityHandler = this.getCityHandler.bind(this);
+    this.getAllCityHandler = this.getAllCityHandler.bind(this);
+    this.updateCityHandler = this.updateCityHandler.bind(this);
+    this.deleteCityHandler = this.deleteCityHandler.bind(this);
   }
-
-  async createAirplaneHandler(req, res) {
+  async createCityHandler(req, res) {
     try {
       console.log("req Body->", req?.body);
-      const response = await this.Airplaneservices.createAirplane({
-        modelNumber: req.body.modelNumber,
-        capacity: parseInt(req.body.capacity),
+      const response = await this.CityService.createCity({
+        name: req?.body?.name,
       });
-      successResponse.message = "Airplane created";
+      successResponse.message = "City created";
       successResponse.data = response;
       return res.status(StatusCodes.CREATED).json(successResponse);
     } catch (e) {
       console.log(e);
-      errorResponse.message = "Error in creating airplane in Controller";
+      errorResponse.message = "Error in creating City in Controller";
       errorResponse.error = e;
       return res.status(e.statusCode).json(errorResponse);
     }
   }
-
-  async getAllAirplaneHandler(req, res) {
+  async getAllCityHandler(req, res) {
     try {
-      const response = await this.Airplaneservices.GetAllAirplane();
-      successResponse.message = "All Airplane Fetched";
+      const response = await this.CityService.getAllCity();
+      successResponse.message = "All City Fetched";
       successResponse.data = response;
       return res.status(StatusCodes.CREATED).json(successResponse);
     } catch (e) {
       console.log("e->", e);
-      errorResponse.message = "Error in Getting all airplane in Controller";
+      errorResponse.message = "Error in Getting all City in Controller";
       errorResponse.error = e;
       return res.status(e.statusCode).json(errorResponse);
     }
   }
-
-  async getAirplaneHandler(req, res) {
+  async getCityHandler(req, res) {
     try {
       const _id = parseInt(req?.params?.id);
-      const response = await this.Airplaneservices.GetAirplane(_id);
+      const response = await this.CityService.getCity(_id);
       if (!response) {
         throw new ApiError("No any data with this ID", StatusCodes.NOT_FOUND);
       }
-      successResponse.message = "Airplane Fetched";
+      successResponse.message = "City Fetched";
       successResponse.data = response;
       return res.status(StatusCodes.CREATED).json(successResponse);
     } catch (e) {
@@ -62,12 +58,12 @@ class AirplaneController {
       return res.status(e.statusCode).json(errorResponse);
     }
   }
-  async deleteAirplaneHandler(req, res) {
+  async deleteCityHandler(req, res) {
     try {
       const id = parseInt(req?.params?.id);
-      const response = await this.Airplaneservices.DeleteAirplane(id);
+      const response = await this.CityService.deleteCity(id);
       successResponse.data = response;
-      successResponse.message = "Successfully deleted the airplane.";
+      successResponse.message = "Successfully deleted the City.";
       return res.status(StatusCodes.OK).json(successResponse);
     } catch (error) {
       errorResponse.error = error;
@@ -75,13 +71,13 @@ class AirplaneController {
       return res.status(error.statusCode).json(errorResponse);
     }
   }
-  async updateAirplaneHandler(req, res) {
+  async updateCityHandler(req, res) {
     try {
       const id = parseInt(req?.params?.id);
       const data = req?.body;
-      const response = await this.Airplaneservices.updateAirplane(id, data);
+      const response = await this.CityService.updateCity(id, data);
       successResponse.data = response;
-      successResponse.message = "Successfully Updated the airplane.";
+      successResponse.message = "Successfully Updated the City.";
       return res.status(StatusCodes.OK).json(successResponse);
     } catch (error) {
       console.log("error->", error);
@@ -94,4 +90,4 @@ class AirplaneController {
   }
 }
 
-module.exports = { AirplaneController };
+module.exports = { CityController };
