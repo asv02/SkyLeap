@@ -8,6 +8,7 @@ const myFormat = printf(({ level, message, timestamp }) => {
 });
 
 const logger = createLogger({
+  // levels: winston.config.npm.levels,
   format: combine(timestamp({ format: "YYYY:MM:DD HH:MM:SS" }), myFormat),
   transports: [
     new winston.transports.File({ filename: "combined.log"}),
