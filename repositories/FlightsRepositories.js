@@ -9,16 +9,15 @@ class FlightRepositories extends CrudRepo {
   }
 
   async getAllFlights(query) {
+    console.log("query in repo->", query);
     try {
       /*query:{}*/
       const res = await Flight.findAll({
         where: query,
       });
+      return res;
     } catch (error) {
-      throw new ApiError(
-        "Not able to get flights",
-        StatusCodes.INTERNAL_SERVER_ERROR
-      );
+      throw new ApiError(error.message, 500);
     }
   }
 }

@@ -5,11 +5,10 @@ const AirplaneRoutes = require("./Airplane-Routers");
 const CityRoutes = require("./City-Routes");
 const AirportRoutes = require("./Airport-Routes");
 const FlightRoutes = require("./Flight-Routes");
-const { FlightRequestValidation } = require("../../middlewares");
 
 router.get("/info", controllers.infoController.info);
 router.use("/city_routes", CityRoutes);
 router.use("/air", AirplaneRoutes);
 router.use("/airport_routes", AirportRoutes);
-router.use("/flight_routes", FlightRequestValidation, FlightRoutes);
+router.use("/flight_routes",FlightRoutes);
 module.exports = router;

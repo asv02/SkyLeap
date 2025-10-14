@@ -7,6 +7,7 @@ class FlightController {
   constructor() {
     this.FlightServices = new FlightServices();
     this.handleCreateFlight = this.handleCreateFlight.bind(this);
+    this.handleGetFlight = this.handleGetFlight.bind(this);
     this.handleDeleteFlight = this.handleDeleteFlight.bind(this);
   }
 
@@ -38,6 +39,21 @@ class FlightController {
       res.status(error.statusCode).json(errorResponse);
     }
   }
+
+  async handleGetFlight(req, res) {
+    const query = req?.query;//{}
+    try {
+      const response = await this.FlightServices.getallFlights(query);
+      successResponse.message = "Flight";
+      successResponse.data = response;
+      res.status(StatusCodes.CREATED).json(successResponse);
+    } catch (error) {
+      errorResponse.message = error.message;
+      errorResponse.error = error;
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(errorResponse);
+    }
+  }
+
   async handleDeleteFlight(req, res) {
     try {
       const id = req?.params?.id;
