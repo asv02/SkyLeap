@@ -9,10 +9,11 @@ class CrudRepo {
   }
   async create(data) {
     try {
-      const response = await this.model.create(data);
+      const response = await this.model?.create(data);
       return response;
     } catch (error) {
-      logger.error("Error in creating CrudRepo Model");
+      console.log("Error in repo->", error);
+      // logger.error("Error in creating CrudRepo Model");
       throw error;
     }
   }
@@ -30,7 +31,7 @@ class CrudRepo {
   async get(data) {
     try {
       const res = await this.model.findByPk(data);
-      console.log('res in get->',res)
+      console.log("res in get->", res);
       return res;
     } catch (error) {
       // console.log('Error in REPO',error)

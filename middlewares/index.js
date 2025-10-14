@@ -1,3 +1,3 @@
 const { AirplaneRequestValidation } = require("./AirplaneRequestValidation");
-
-module.exports = { AirplaneRequestValidation };
+const { FlightRequestValidation } = require("./FlightRequestValidation");
+module.exports = { AirplaneRequestValidation, FlightRequestValidation };

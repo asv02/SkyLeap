@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       name: { type: DataTypes.STRING, unique: true, allowNull: false },
       airportCode: { type: DataTypes.STRING, allowNull: false, unique: true },
       address: { type: DataTypes.STRING, unique: true },
-      cityId: { type: DataTypes.INTEGER, allowNull: false, unique: true },
+      cityId: { type: DataTypes.INTEGER, allowNull: false, },
     },
     {
       sequelize,

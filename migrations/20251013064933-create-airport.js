@@ -12,11 +12,11 @@ module.exports = {
       name: { type: Sequelize.STRING, unique: true, allowNull: false },
 
       airportCode: { type: Sequelize.STRING, allowNull: false, unique: true },
-      
-      address: { type: Sequelize.STRING, unique: true },
-      
-      cityId: { type: Sequelize.INTEGER, allowNull: false, unique: true },
-      
+
+      address: { type: Sequelize.STRING, unique: true, allowNull: false },
+
+      cityId: { type: Sequelize.INTEGER, allowNull: false },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
