@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
+  
   Flight.init(
     {
       flightNumber: {
