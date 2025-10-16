@@ -11,7 +11,7 @@ class FlightServices extends FlightRepositories {
 
   async createFlight(data) {
     try {
-      console.log("Creating Flight at Service layer");
+      // console.log("Creating Flight at Service layer");
       const Flight = await this.create(data);
       return Flight;
     } catch (error) {
@@ -33,7 +33,7 @@ class FlightServices extends FlightRepositories {
   async getallFlights(query) {
     const customFilter = {};
     const OneDay = "23:59:59";
-    console.log("query->", query);
+    // console.log("query->", query);
 
     if (query.trips) {
       let [departureAirportId, arrivalAirportId] = query.trips.split("-");
@@ -67,20 +67,20 @@ class FlightServices extends FlightRepositories {
 
     try {
       const reponse = await this.getAllFlights(customFilter);
-      console.log("Response->", reponse);
+      // console.log("Response->", reponse);
       return reponse;
     } catch (error) {
       throw new ApiError(error.message, StatusCodes.INTERNAL_SERVER_ERROR);
     }
   }
 
-  async DeleteFlight(data) {
+  async getFlight(id) {
     try {
-      const response = await this.delete(data);
-      console.log("response in deleting om service->", response);
+      const response = await this.get(id);
+      // console.log("response in fetching om service->", response);
       if (!response) {
         throw new ApiError(
-          "Data with provided id not found",
+          "Flight with provided id not found",
           StatusCodes.NOT_FOUND
         );
       }
@@ -92,6 +92,20 @@ class FlightServices extends FlightRepositories {
 
       const e = new ApiError(
         "Error in deleting the info about Flight",
+        StatusCodes.INTERNAL_SERVER_ERROR
+      );
+      throw e;
+    }
+  }
+
+  async updateFlightSeats(id, seats, desc) {
+    try {
+      const resp = await this.updateSeats(id, seats, desc);
+      return resp;
+    } catch (error) {
+      console.log("error------>", error);
+      const e = new ApiError(
+        "Error in upating the seats about Flight in Service:" + error.message,
         StatusCodes.INTERNAL_SERVER_ERROR
       );
       throw e;

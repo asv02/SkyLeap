@@ -9,7 +9,7 @@ class AirplaneServices extends AirplaneRepositories {
 
   async createAirplane(data) {
     try {
-      console.log("Creating Airplane at Service layer");
+      // console.log("Creating Airplane at Service layer");
       const airplane = await this.create(data);
       return airplane;
     } catch (error) {
@@ -23,7 +23,7 @@ class AirplaneServices extends AirplaneRepositories {
   async GetAirplane(data) {
     try {
       const response = await this.get(data);
-      console.log("reponse of get in service layer->", response);
+      // console.log("reponse of get in service layer->", response);
       return response;
     } catch (error) {
       const err = new ApiError(
@@ -55,7 +55,7 @@ class AirplaneServices extends AirplaneRepositories {
   async DeleteAirplane(data) {
     try {
       const response = await this.delete(data);
-      console.log("response in deleting om service->", response);
+      // console.log("response in deleting om service->", response);
       if (!response) {
         throw new ApiError(
           "Data with provided id not found",
@@ -80,7 +80,7 @@ class AirplaneServices extends AirplaneRepositories {
       const response = await this.update(id, data);
       return response;
     } catch (error) {
-      console.log("error in Update->", error);
+      // console.log("error in Update->", error);
       if (error.statusCode === StatusCodes.NOT_FOUND) {
         throw error;
       }

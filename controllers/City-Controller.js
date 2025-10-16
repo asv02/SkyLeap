@@ -14,7 +14,7 @@ class CityController {
   }
   async createCityHandler(req, res) {
     try {
-      console.log("req Body->", req?.body);
+      // console.log("req Body->", req?.body);
       const response = await this.CityService.createCity({
         name: req?.body?.name,
       });
@@ -22,7 +22,7 @@ class CityController {
       successResponse.data = response;
       return res.status(StatusCodes.CREATED).json(successResponse);
     } catch (e) {
-      console.log(e);
+      // console.log(e);
       errorResponse.message = "Error in creating City in Controller";
       errorResponse.error = e;
       return res.status(e.statusCode).json(errorResponse);
@@ -35,7 +35,7 @@ class CityController {
       successResponse.data = response;
       return res.status(StatusCodes.CREATED).json(successResponse);
     } catch (e) {
-      console.log("e->", e);
+      // console.log("e->", e);
       errorResponse.message = "Error in Getting all City in Controller";
       errorResponse.error = e;
       return res.status(e.statusCode).json(errorResponse);
@@ -52,7 +52,7 @@ class CityController {
       successResponse.data = response;
       return res.status(StatusCodes.CREATED).json(successResponse);
     } catch (e) {
-      console.log("e", e);
+      // console.log("e", e);
       errorResponse.message = e.message;
       errorResponse.error = e;
       return res.status(e.statusCode).json(errorResponse);
@@ -80,10 +80,10 @@ class CityController {
       successResponse.message = "Successfully Updated the City.";
       return res.status(StatusCodes.OK).json(successResponse);
     } catch (error) {
-      console.log("error->", error);
+      // console.log("error->", error);
       errorResponse.error = error;
       errorResponse.message = error.message;
-      console.log(typeof error.statusCode);
+      // console.log(typeof error.statusCode);
 
       return res.status(error.statusCode).json(errorResponse);
     }

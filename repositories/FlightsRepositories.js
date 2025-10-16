@@ -1,11 +1,12 @@
 const { StatusCodes } = require("http-status-codes");
-const { Flight } = require("../models");
+const { Flight, sequelize } = require("../models");
 const { Airplane } = require("../models");
 const { Airport } = require("../models");
 const { City } = require("../models");
 const { ApiError } = require("../utils");
 const { CrudRepo } = require("./crud-repo");
 const { Sequelize } = require("sequelize");
+const db = require("../models");
 
 class FlightRepositories extends CrudRepo {
   constructor() {
@@ -13,7 +14,7 @@ class FlightRepositories extends CrudRepo {
   }
 
   async getAllFlights(query) {
-    console.log("query in repo->", query);
+    // console.log("query in repo->", query);
     try {
       /*query:{}*/
       const res = await Flight.findAll({
@@ -31,7 +32,7 @@ class FlightRepositories extends CrudRepo {
               ),
             },
             // as: "Departure_Airport",
-            include:City
+            include: City,
           },
           {
             model: Airport,
@@ -49,6 +50,30 @@ class FlightRepositories extends CrudRepo {
       return res;
     } catch (error) {
       throw new ApiError(error.message, 500);
+    }
+  }
+
+  async updateSeats(id, seats, desc = true) {
+    console.log('UpdateSeat called------>>>')
+    try {
+      const result = await db.sequelize.transaction(async () => {
+        const flight = await this.get(id);
+        await db.sequelize.query(
+          `SELECT * FROM "Flights" WHERE ID = ${id} FOR UPDATE`
+        ); // to lock the row to update
+        let response;
+        if (desc) {
+          response = await flight.decrement("totalSeats", { by: seats });
+        } else {
+          response = await flight.increment("totalSeats", { by: seats });
+        }
+        throw new ApiError('Intentional ERROR',StatusCodes.BAD_GATEWAY)
+        return response;
+      });
+      return result;
+    } catch (error) {
+      const e = new ApiError(error.message, StatusCodes.INTERNAL_SERVER_ERROR);
+      throw e;
     }
   }
 }

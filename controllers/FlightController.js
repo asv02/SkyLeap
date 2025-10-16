@@ -8,7 +8,8 @@ class FlightController {
     this.FlightServices = new FlightServices();
     this.handleCreateFlight = this.handleCreateFlight.bind(this);
     this.handleGetFlight = this.handleGetFlight.bind(this);
-    this.handleDeleteFlight = this.handleDeleteFlight.bind(this);
+    this.handleAFlight = this.handleAFlight.bind(this);
+    this.handleupdateFlightSeats = this.handleupdateFlightSeats.bind(this);
   }
 
   async handleCreateFlight(req, res) {
@@ -41,7 +42,7 @@ class FlightController {
   }
 
   async handleGetFlight(req, res) {
-    const query = req?.query;//{}
+    const query = req?.query; //{}
     try {
       const response = await this.FlightServices.getallFlights(query);
       successResponse.message = "Flight";
@@ -54,11 +55,30 @@ class FlightController {
     }
   }
 
-  async handleDeleteFlight(req, res) {
+  async handleAFlight(req, res) {
     try {
       const id = req?.params?.id;
-      const response = await this.FlightServices.DeleteFlight(id);
-      successResponse.message = "Flight Deleted";
+      const response = await this.FlightServices.getFlight(id);
+      successResponse.message = "Flight Fetched";
+      successResponse.data = response;
+      res.status(StatusCodes.OK).json(successResponse);
+    } catch (error) {
+      throw new ApiError(error.message, error.statusCode);
+    }
+  }
+
+  async handleupdateFlightSeats(req, res) {
+    try {
+      // console.log('Updating seats in  flight......')
+      const id = req?.params?.id;
+      const seats = parseInt(req?.body?.seats);
+      const desc = req?.body?.desc;
+      const response = await this.FlightServices.updateFlightSeats(
+        id,
+        seats,
+        desc
+      );
+      successResponse.message = "Flight Fetched";
       successResponse.data = response;
       res.status(StatusCodes.OK).json(successResponse);
     } catch (error) {

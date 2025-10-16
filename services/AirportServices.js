@@ -51,7 +51,7 @@ class AirportServices extends AirportRepo {
       const res = await this.create(data);
       return res;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       const explanation = [];
 
       if (error.name === "SequelizeUniqueConstraintError") {

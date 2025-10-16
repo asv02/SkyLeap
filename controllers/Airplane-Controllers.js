@@ -15,7 +15,7 @@ class AirplaneController {
 
   async createAirplaneHandler(req, res) {
     try {
-      console.log("req Body->", req?.body);
+      // console.log("req Body->", req?.body);
       const response = await this.Airplaneservices.createAirplane({
         modelNumber: req.body.modelNumber,
         capacity: parseInt(req.body.capacity),
@@ -24,7 +24,7 @@ class AirplaneController {
       successResponse.data = response;
       return res.status(StatusCodes.CREATED).json(successResponse);
     } catch (e) {
-      console.log(e);
+      // console.log(e);
       errorResponse.message = "Error in creating airplane in Controller";
       errorResponse.error = e;
       return res.status(e.statusCode).json(errorResponse);
@@ -38,7 +38,7 @@ class AirplaneController {
       successResponse.data = response;
       return res.status(StatusCodes.CREATED).json(successResponse);
     } catch (e) {
-      console.log("e->", e);
+      // console.log("e->", e);
       errorResponse.message = "Error in Getting all airplane in Controller";
       errorResponse.error = e;
       return res.status(e.statusCode).json(errorResponse);
@@ -56,7 +56,7 @@ class AirplaneController {
       successResponse.data = response;
       return res.status(StatusCodes.CREATED).json(successResponse);
     } catch (e) {
-      console.log("e", e);
+      // console.log("e", e);
       errorResponse.message = e.message;
       errorResponse.error = e;
       return res.status(e.statusCode).json(errorResponse);
@@ -84,10 +84,10 @@ class AirplaneController {
       successResponse.message = "Successfully Updated the airplane.";
       return res.status(StatusCodes.OK).json(successResponse);
     } catch (error) {
-      console.log("error->", error);
+      // console.log("error->", error);
       errorResponse.error = error;
       errorResponse.message = error.message;
-      console.log(typeof error.statusCode);
+      // console.log(typeof error.statusCode);
 
       return res.status(error.statusCode).json(errorResponse);
     }

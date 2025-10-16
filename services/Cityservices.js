@@ -12,7 +12,7 @@ class Cityservice extends CityRepositories {
 
   async createCity(data) {
     try {
-      console.log("Creating City at Service layer");
+      // console.log("Creating City at Service layer");
       const city = await this.create(data);
       return city;
     } catch (error) {
@@ -26,7 +26,7 @@ class Cityservice extends CityRepositories {
   async getCity(id) {
     try {
       const response = await this.get(id);
-      console.log("reponse of get in service layer->", response);
+      // console.log("reponse of get in service layer->", response);
       return response;
     } catch (error) {
       const err = new ApiError(
@@ -57,7 +57,7 @@ class Cityservice extends CityRepositories {
   async deleteCity(id) {
     try {
       const response = await this.delete(id);
-      console.log("response in deleting om service->", response);
+      // console.log("response in deleting om service->", response);
       if (!response) {
         throw new ApiError(
           "Data with provided id not found",
@@ -82,7 +82,7 @@ class Cityservice extends CityRepositories {
       const response = await this.update(id, data);
       return response;
     } catch (error) {
-      console.log("error in Update->", error);
+      // console.log("error in Update->", error);
       if (error.statusCode === StatusCodes.NOT_FOUND) {
         throw error;
       }
