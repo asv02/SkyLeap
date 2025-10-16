@@ -54,7 +54,7 @@ class FlightRepositories extends CrudRepo {
   }
 
   async updateSeats(id, seats, desc = true) {
-    console.log('UpdateSeat called------>>>')
+    console.log("UpdateSeat called------>>>");
     try {
       const result = await db.sequelize.transaction(async () => {
         const flight = await this.get(id);
@@ -67,7 +67,6 @@ class FlightRepositories extends CrudRepo {
         } else {
           response = await flight.increment("totalSeats", { by: seats });
         }
-        throw new ApiError('Intentional ERROR',StatusCodes.BAD_GATEWAY)
         return response;
       });
       return result;
